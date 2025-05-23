@@ -1,0 +1,62 @@
+Applied Cryptography
+Homework-4 solutions 
+
+Name:
+E-mail:
+
+=======================================
+Challenge-1: Small blocks (2 points)
+---------------------------------------
+Recovered personal data:
+
+Name: Thomas Cook
+Address: 18 Constitution Avenue
+Postal code: 20002
+
+---------------------------------------
+Steps of your solution (brief description that is just enough to reproduce your solution):
+
+- First I aligned the plain text hex with the cipher text.
+- Then I isolated the parts that belonged to the missing information denoted by ??
+- I identified similar cipher blocks (Y_i) to the blocks I wanted to solve.
+- For each mission information I started from the first block and used the formula:
+  X_j = Y_(i-1) + Y_(j-1) + X_i.
+- I skipped the blocks for which I couldn't find corresponding X_i and Y_(i-1). 
+- I guessed the remaning blocks. There were a couple of letter missing from the name
+  which were easy to guess. The address was easy to guess since it was only missing 
+  letters from the Avenue name and we already knew it was in Washington DC. For the 
+  missing number in the postal code, after finding the address I googled the postal
+  code of that address(there were two options but only one matched the previous 
+  numbers I decoded).
+
+=======================================
+Challenge-2: Padding Oracle (2 points)
+---------------------------------------
+Recovered plaintext block: 436f6e677261747334637261636b696e (ASCII: Congrats4crackin)
+
+The right values for the placeholders:
+__TODO_1__ =  b'\x00' * 16
+__TODO_2__ =  R + Y
+__TODO_3__ =  i
+__TODO_4__ =  i + 1
+__TODO_5__ =  r[0] ^ 0x80
+
+
+
+================================================
+Challenge-3: One, Two, Buckle my Shoe (4 points)
+------------------------------------------------
+The FLAG (the string after the "FLAG: " tag) in the plaintext:
+AES-CTR_MUST_NEVER_RE-USE_CTRS
+
+
+The name of the malware analyzed by the CrySyS Lab in May 2012 in an international collaboration: sKyWIper
+
+
+
+What is the 4 padding bytes at the end of the decoded plaintext? Provide your answer as a hex string (e.g., 1234abcd):
+01000000
+
+
+Attach, in a separate file, your attack script that performs your attack and prints out the plaintext recovered.
+

@@ -1,0 +1,75 @@
+Applied Cryptography
+Homework-5 solutions
+
+Name:
+e-mail:
+
+Please, attach scripts and files requested below to this text file by putting all files in a single zip file! The zip file content should be the following:
+
+hw5-solutions-YourName.txt (this file)
+1_Happy_birthday/msg1.txt
+1_Happy_birthday/msg2.txt
+1_Happy_birthday/attack.py
+2_XOR-MAC/fake-t.txt
+2_XOR-MAC/t-mac.bin
+
+
+=======================================
+Challenge-1: Happy Birthday! (2 points)
+---------------------------------------
+Attach in a zip file the following files:
+- your attack script (attack.py) that performs your attack and prints the two message variants and their trhash values,
+- msg1.txt containing the first (positive) message variant,
+- msg2.txt containing the second (negative) message variant.
+
+Steps of your solution (brief description that is just enough to reproduce your solution):
+- First I generated 2^16 semantically equivalent variants for each message and stored them in a dictionary by mainly
+  using variants for specific words or changing the number of spaces between words.
+- I used the hashes of the messages as keys and stored the variants as values.
+- Then I searched if there was the same hash seen in both dictionaries in linear time.
+- When I found a hash present in both then I printed the values and the corresponding hashes.
+
+
+=======================================
+Challenge-2: XOR-MAC (2 points)
+---------------------------------------
+Attach in a zip file a file (fake-t.txt) containing your fake transaction! Please, also include in the same zip file the original t-mac.bin file, for the purpose of easier verification. Thanks!
+
+Steps of your solution (brief description that is just enough to reproduce your solution):
+- First I lined up each value with the position number above it to see which values correspond to the same position.
+- Since the same positions get XORed together changing them while their XOR remains the same gives the same MAC.
+            0123456789abcdef0123456789abcdef0123456789abcdef
+            2020:02:23|11:23:38|21450|A74635|B29846|00002500
+- Then I changed the first digit 0 in the amount and the last digit 0 of the transaction number happen both to 9, so they are both higher values and XOR remains the same.
+- Then I swapped the digit 1 in 'c' position in the time with the digit 2 in the 'c' position of the amount, so the transaction happens an hour later, but XOR remains the same.
+           2020:02:23|12:23:38|21459|A74635|B29846|90001500
+- We can also swap the '3' positons of the time and date if needed to get.
+           2080:02:23|11:23:32|21459|A74635|B29846|90002500
+
+
+
+==========================================
+Challenge-3: Fill the Gap (2 points)
+------------------------------------------
+The encryption key that was used to produce ciphertext.crypt:
+b2e1237a408e072e2e1306c7ed22b2e7
+
+
+The result of decoding ciphertext.crypt with the obtained key:
+Psychologist Michal Kosinski developed a method to analyze people in minute detail based on their Facebook activity. Did a similar tool help propel Donald Trump to victory? Two reporters from Zurich-based Das Magazin went data-gathering.
+
+​On November 9 at around 8.30 AM., Michal Kosinski woke up in the Hotel Sunnehus in Zurich. The 34-year-old researcher had come to give a lecture at the Swiss Federal Institute of Technology (ETH) about the dangers of Big Data and the digital revolution. Kosinski gives regular lectures on this topic all over the world. He is a leading expert in psychometrics, a data-driven sub-branch of psychology. When he turned on the TV that morning, he saw that the bombshell had exploded: contrary to forecasts by all leading statisticians, Donald J. Trump had been elected president of the United States. 
+
+
+Steps of your solution (explain how you managed to figure out the key):
+- First we extract the IV from the ciphertext by taking the first 16 bytes from the ciphertexts.
+- Since we get X_(i+2) by XORing X_(i+1) and the IV, we can recover X_(i+1) by XORing X_(i+2) and the IV.
+- X_(i+1) = X_(i+2) (+) IV
+- Then similarly we can get the key by XORing X_(i) and X_(i+1).
+- K = X_(i) (+) X_(i+1)
+- Then we can run the decryption algorithm with the given key and ciphertext to get the plaintext.
+
+
+
+
+

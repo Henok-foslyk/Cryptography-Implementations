@@ -1,0 +1,64 @@
+Applied Cryptography
+Optional homework solutions
+
+Name:
+E-mail:
+
+================================================
+Challenge-01: Meet NataSHA (5 points)
+------------------------------------------------
+The recovered key:
+3bf1ce3e4dfc
+
+The recovered plaintext blocks (both of them):
+Meet_NataSHA_which_is_not_a_SHA_although
+_we_use_it_not_to_hash_but_to_encrypt...
+
+Steps of your solution:
+- I did a 2^24 storing of all the possible keys used for k0, k1, k2 in a hashmap
+- The hashmap saved all the possible L3 mapped to the corresponding k0 + k1 + k2.
+- Similarily I did the saving starting from L6R6 in 2^16 storage.
+- I saved all the possible values of k4 and k5. 
+- Then after comparing all the map keys to check where I have a similar value, 
+  I found k3 by checking all the compinations (2^8) of possible bytes.
+- After recovering the key I used the DEC function in natasha.py to decrypt the second block.
+
+Put your attack script and all files that it uses in a folder named meet_natasha, zip the folder, and submit also meet_natasha.zip. We should be able to unzip the submitted file and run your script without any additional effort.
+
+
+===============================================
+Challenge-02: Iterative Guessing (5 points)
+-----------------------------------------------
+The decrypted payload:
+All computers are hackable. This has as much to do with the computer market as it does with the technologies. We prefer our software full of features and inexpensive, at the expense of security and reliability. That your computer can affect the security of Twitter is a market failure. The industry is filled with market failures that, until now, have been largely ignorable. As computers continue to permeate our homes, cars, businesses, these market failures will no longer be tolerable. Our only solution will be regulation, and that regulation will be foisted on us by a government desperate to "do something" in the face of disaster.
+
+FLAG: 76bb5fe76d87d3bff541f78d6c6156b5
+
+Your modern refrigerator is a computer that keeps things cold. Your oven, similarly, is a computer that makes things hot. An ATM is a computer with money inside. Your car is no longer a mechanical device with some computers inside; it's a computer with four wheels and an engine. Actually, it's a distributed system of over 100 computers with four wheels and an engine. And, of course, your phones became full-power general-purpose computers in 2007, when the iPhone was introduced.
+
+Steps of your solution:
+- First I attempted all time stamps going back 5 minutes from the time the message was observed.
+- One of the time stamps XORed with the initial gave me the correct mackey when I tested it with the MAC value.
+- I knew the encryption key's timestamp was between the time the mac was generated and the time the message was observed.
+- I iterated over all the possible key's generated from the second state and the possible time values and looked for the word "FLAG" in the results.
+- When I found the word FLAG I checked to ensure the rest of the plain text made sense.
+
+
+
+Put your attack script and all files that it uses in a folder named iterative_guessing, zip the folder, and submit also iterative_guessing.zip. We should be able to unzip the submitted file and run your script without any additional effort.
+
+
+===============================================
+Challenge-03: Encrypted Display Control (5 points)
+-----------------------------------------------
+
+The displayed message:
+<copy here the message printed on the display>
+
+
+Steps of your solution:
+<brief description that is just enough to reproduce your solution>
+
+
+
+Put your attack script and all files that it uses in a folder named enc_display_ctr, zip the folder, and submit also enc_display_ctrl.zip. We should be able to unzip the submitted file and run your script without any additional effort.
